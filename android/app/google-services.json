@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "204569740105",
+    "project_id": "rmai-8dc52",
+    "storage_bucket": "rmai-8dc52.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:204569740105:android:8f49f0d3c66c3098cbd098",
+        "android_client_info": {
+          "package_name": "com.example.freedom_app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBV7ZefWSkId-halHmtXTcp-JDoyRybeLE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
