@@ -4,8 +4,6 @@ import 'package:freedom_app/const.dart';
 import 'package:freedom_app/intro_screens/intro_page1.dart';
 import 'package:freedom_app/intro_screens/intro_page2.dart';
 import 'package:freedom_app/intro_screens/intro_page3.dart';
-import 'package:freedom_app/main%20page/main_page.dart';
-import 'package:freedom_app/navbar.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart'; // Import this package
 
@@ -17,7 +15,7 @@ class OnBoardingScreen extends StatefulWidget {
 }
 
 class _OnBoardingScreenState extends State<OnBoardingScreen> {
-  PageController _controller = PageController();
+  final PageController _controller = PageController();
 
   bool onLastPage = false;
 
@@ -39,10 +37,10 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
                 onLastPage = (index == 2);
               });
             },
-            children: [IntroPage1(), IntroPage2(), IntroPage3()],
+            children: const [IntroPage1(), IntroPage2(), IntroPage3()],
           ),
           Container(
-            alignment: Alignment(0, 0.75),
+            alignment: const Alignment(0, 0.75),
             child: SmoothPageIndicator(
               controller: _controller,
               count: 3,
@@ -50,7 +48,7 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
             ),
           ),
           Container(
-            alignment: Alignment(0, 0.85),
+            alignment: const Alignment(0, 0.85),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
@@ -63,15 +61,16 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
                     child: Text(
                        'Пропустить',
                       style: Theme.of(context).textTheme.bodyLarge,
-                    )) : SizedBox(),
+                    )) : const SizedBox(),
                     SizedBox(width: !onLastPage ? 150: 0,),
                 onLastPage
                     ? GestureDetector(
                         onTap: () async {
                           await _storeOnboardInfo();
+                          // ignore: use_build_context_synchronously
                           Navigator.pushReplacement(context,
                               MaterialPageRoute(builder: (context) {
-                            return AuthPage();
+                            return const AuthPage();
                           }));
                         },
                         child: Text('Начать!',
@@ -79,7 +78,7 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
                     : GestureDetector(
                         onTap: () {
                           _controller.nextPage(
-                              duration: Duration(milliseconds: 500),
+                              duration: const Duration(milliseconds: 500),
                               curve: Curves.easeIn);
                         },
                         child: Text('Далее',

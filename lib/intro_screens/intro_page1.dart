@@ -3,16 +3,18 @@ import 'package:freedom_app/const.dart';
 import 'package:lottie/lottie.dart';
 
 class IntroPage1 extends StatelessWidget {
+  const IntroPage1({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Container(
       color: customGreen3,
       child: Column(
         children: [
-          SizedBox(height: 100),
+          const SizedBox(height: 100),
           Lottie.asset('assets/1.json'),
           Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 20),
+                  padding: const EdgeInsets.symmetric(horizontal: 20),
 
             child: Column(
               children: [
@@ -21,10 +23,10 @@ class IntroPage1 extends StatelessWidget {
                   style: Theme.of(context).textTheme.headlineMedium,
                   textAlign: TextAlign.center,
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 20,
                 ),
-                Text(
+                const Text(
                   "Зарегистрируйтесь за секунды и откройте для себя мир профессиональных возможностей с мгновенным доступом к обширной базе данных резюме",
                   textAlign: TextAlign.center,
                 ),

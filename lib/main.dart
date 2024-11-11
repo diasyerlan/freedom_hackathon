@@ -6,7 +6,6 @@ import 'package:freedom_app/firebase_options.dart';
 import 'package:freedom_app/provider.dart';
 import 'package:freedom_app/splash%20screen/splash_screen.dart';
 import 'package:provider/provider.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();

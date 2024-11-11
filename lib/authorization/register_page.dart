@@ -1,6 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:freedom_app/components/button.dart';
 import 'package:freedom_app/components/text_field.dart';
@@ -44,8 +43,10 @@ class _RegisterPageState extends State<RegisterPage> {
         'bio': 'Empty bio...',
         'phone': phoneTextController.text
       });
+      // ignore: use_build_context_synchronously
       if (context.mounted) Navigator.pop(context);
     } on FirebaseAuthException catch (e) {
+      // ignore: use_build_context_synchronously
       Navigator.pop(context);
       displayMessage(e.code);
     }
@@ -116,7 +117,7 @@ class _RegisterPageState extends State<RegisterPage> {
                     obscureText: true),
                 const SizedBox(height: 25),
                 MyButton(onTap: signUp, text: 'Sign Up'),
-                SizedBox(
+                const SizedBox(
                   height: 25,
                 ),
                 Row(
@@ -131,7 +132,7 @@ class _RegisterPageState extends State<RegisterPage> {
                     ),
                     GestureDetector(
                       onTap: widget.onTap,
-                      child: Text(
+                      child: const Text(
                         'Login now',
                         style: TextStyle(
                             fontWeight: FontWeight.bold, color: Colors.blue),

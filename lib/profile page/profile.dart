@@ -26,7 +26,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 autofocus: true,
                 decoration: InputDecoration(
                     hintText: "Enter new $field",
-                    hintStyle: TextStyle(color: Colors.grey)),
+                    hintStyle: const TextStyle(color: Colors.grey)),
                 onChanged: (value) {
                   newValue = value;
                 },
@@ -34,17 +34,17 @@ class _ProfileScreenState extends State<ProfileScreen> {
               actions: [
                 TextButton(
                     onPressed: () => Navigator.pop(context),
-                    child: Text('Cancel')),
+                    child: const Text('Cancel')),
                 TextButton(
                     onPressed: () async {
                       Navigator.pop(context);
-                      if (newValue.trim().length > 0) {
+                      if (newValue.trim().isNotEmpty) {
                         await usersCollection
                             .doc(currentUser.email)
                             .update({field: newValue});
                       }
                     },
-                    child: Text('Save')),
+                    child: const Text('Save')),
               ],
             ));
   }
@@ -63,7 +63,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 return ListView(
                   children: [
                     const SizedBox(height: 50),
-                    Icon(
+                    const Icon(
                       Icons.person,
                       size: 72,
                       color: Colors.green,
@@ -73,7 +73,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       textAlign: TextAlign.center,
                       style: TextStyle(color: Colors.grey[700]),
                     ),
-                    SizedBox(height: 50),
+                    const SizedBox(height: 50),
                     Padding(
                       padding: const EdgeInsets.only(left: 25),
                       child: Text(

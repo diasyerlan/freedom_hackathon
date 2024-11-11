@@ -4,7 +4,6 @@ import 'package:freedom_app/cv%20grid/cv_grid_page.dart';
 import 'package:freedom_app/cv%20scoring/cv_scoring_page.dart';
 import 'package:freedom_app/gemini/gemini_page.dart';
 import 'package:freedom_app/main%20page/main_page.dart';
-import 'package:freedom_app/models/job.dart';
 import 'package:freedom_app/profile%20page/profile.dart';
 
 
@@ -22,8 +21,8 @@ class _NavBarState extends State<NavBar> {
   @override
   void initState() {
     super.initState();
-    _pages = [
-      const NavigatorPage(child: MainPage()),
+    _pages = const [
+      NavigatorPage(child: MainPage()),
       NavigatorPage(child: ResumeGridPage()),
       NavigatorPage(child: GeminiPage()),
       NavigatorPage(child: ResumeScoringPage()),
@@ -48,7 +47,7 @@ class _NavBarState extends State<NavBar> {
         items: <BottomNavigationBarItem>[
           BottomNavigationBarItem(
             icon: ImageIcon(
-              AssetImage("assets/1.png"),
+              const AssetImage("assets/1.png"),
               size: 33,
               color: _currentIndex == 0 ? Colors.green : Colors.black,
             ),
@@ -56,7 +55,7 @@ class _NavBarState extends State<NavBar> {
           ),
           BottomNavigationBarItem(
             icon: ImageIcon(
-              AssetImage("assets/2.png"),
+              const AssetImage("assets/2.png"),
               size: 33,
               color: _currentIndex == 1 ? Colors.green : Colors.black,
             ),
@@ -64,7 +63,7 @@ class _NavBarState extends State<NavBar> {
           ),
           BottomNavigationBarItem(
             icon: ImageIcon(
-              AssetImage("assets/3.png"),
+              const AssetImage("assets/3.png"),
               size: 80,
               color: _currentIndex == 2 ? Colors.green : Colors.black,
             ),
@@ -72,7 +71,7 @@ class _NavBarState extends State<NavBar> {
           ),
           BottomNavigationBarItem(
             icon: ImageIcon(
-              AssetImage("assets/4.png"),
+              const AssetImage("assets/4.png"),
               size: 33,
               color: _currentIndex == 3 ? Colors.green : Colors.black,
             ),
@@ -80,7 +79,7 @@ class _NavBarState extends State<NavBar> {
           ),
           BottomNavigationBarItem(
             icon: ImageIcon(
-              AssetImage("assets/5.png"),
+              const AssetImage("assets/5.png"),
               size: 33,
               color: _currentIndex == 4 ? Colors.green : Colors.black,
             ),
@@ -100,7 +99,7 @@ class _NavBarState extends State<NavBar> {
 class NavigatorPage extends StatelessWidget {
   final Widget child;
 
-  const NavigatorPage({
+  const NavigatorPage({super.key, 
     required this.child,
   });
 

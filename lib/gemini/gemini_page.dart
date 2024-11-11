@@ -36,8 +36,8 @@ class _GeminiPageState extends State<GeminiPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: GradientAppBar(
-          title: const Text(
+        appBar: const GradientAppBar(
+          title: Text(
             "Умный ассистент",
             style: TextStyle(
                 fontFamily: 'Aldrich', color: Colors.white),

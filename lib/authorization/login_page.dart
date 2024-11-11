@@ -26,8 +26,10 @@ class _LoginPageState extends State<LoginPage> {
       await FirebaseAuth.instance.signInWithEmailAndPassword(
           email: emailTextController.text,
           password: passwordTextController.text);
+      // ignore: use_build_context_synchronously
       if (context.mounted) Navigator.pop(context);
     } on FirebaseAuthException catch (e) {
+      // ignore: use_build_context_synchronously
       Navigator.pop(context);
       displayMessage(e.code);
     }
@@ -83,7 +85,7 @@ class _LoginPageState extends State<LoginPage> {
                   obscureText: true),
               const SizedBox(height: 10),
               MyButton(onTap: signIn, text: 'Sign In'),
-              SizedBox(
+              const SizedBox(
                 height: 25,
               ),
               Row(
@@ -98,7 +100,7 @@ class _LoginPageState extends State<LoginPage> {
                   ),
                   GestureDetector(
                       onTap: widget.onTap,
-                      child: Text(
+                      child: const Text(
                         'Register now',
                         style: TextStyle(
                             fontWeight: FontWeight.bold, color: Colors.blue),

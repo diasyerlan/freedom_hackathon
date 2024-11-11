@@ -13,16 +13,13 @@ class ResumeGridPage extends StatefulWidget {
 }
 
 class _ResumeGridPageState extends State<ResumeGridPage> {
-  // Map to hold jobs grouped by profession
   Map<String, List<Job>> _jobsByProfession = {};
 
-  // Load jobs from JSON file
   Future<void> loadJobs() async {
     String jsonString = await rootBundle.loadString('assets/enbek.json');
     List<dynamic> jsonResponse = jsonDecode(jsonString);
     List<Job> allJobs = jsonResponse.map((jobJson) => Job.fromJson(jobJson)).toList();
 
-    // Group jobs by profession
     setState(() {
       _jobsByProfession = {};
       for (var job in allJobs) {
@@ -38,31 +35,29 @@ class _ResumeGridPageState extends State<ResumeGridPage> {
   @override
   void initState() {
     super.initState();
-    loadJobs(); // Load jobs when the page is first loaded
+    loadJobs(); 
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: GradientAppBar(title: const Text('Сетка', style: TextStyle(color: Colors.white),)),
+      appBar: const GradientAppBar(title: Text('Сетка', style: TextStyle(color: Colors.white),)),
       body: _jobsByProfession.isEmpty
           ? const Center(child: CircularProgressIndicator()) // Show loading indicator while data is being fetched
           : GridView.builder(
               gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 2, // Number of columns in the grid
-                crossAxisSpacing: 8.0, // Horizontal space between items
-                mainAxisSpacing: 8.0, // Vertical space between items
-                childAspectRatio: 2 / 3, // Aspect ratio of each grid item
+                crossAxisCount: 2, 
+                crossAxisSpacing: 8.0,
+                mainAxisSpacing: 8.0, 
+                childAspectRatio: 2 / 3, 
               ),
               itemCount: _jobsByProfession.keys.length, // Number of unique professions
               itemBuilder: (context, index) {
-                // Get the profession from the map keys
                 final profession = _jobsByProfession.keys.elementAt(index);
                 final peopleCount = _jobsByProfession[profession]!.length; // Get the number of people with this profession
 
                 return GestureDetector(
                   onTap: () {
-                    // Get all jobs for the selected profession
                     final filteredJobs = _jobsByProfession[profession]!;
 
                     // Navigate to the ProfessionDetailPage with the list of jobs for this profession
@@ -86,7 +81,6 @@ class _ResumeGridPageState extends State<ResumeGridPage> {
                         children: [
                           Text(profession, style: const TextStyle(fontWeight: FontWeight.bold), textAlign: TextAlign.center,),
                           const SizedBox(height: 8),
-                          // Show the number of people with this profession
                           Text('$peopleCount человек'),
                         ],
                       ),

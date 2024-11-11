@@ -1,39 +1,87 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:freedom_app/models/job.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:crypto/crypto.dart';
+import 'dart:convert'; // For UTF8 encoding
 
 class FavoritesProvider with ChangeNotifier {
-  final List<Job> _favorites = []; // Private list of favorite jobs
+  final List<Job> _favorites = [];
+  final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
-  // Getter for the favorites list
   List<Job> get favorites => _favorites;
 
-  // Method to add a job to favorites
-  void addFavorite(Job job) {
-    if (!_favorites.contains(job)) {
+  bool isFavorite(Job job) {
+    return _favorites.any((fav) => fav.urls == job.urls);
+  }
+
+  // Generate a unique, safe document ID based on job.urls using a hash function
+  String _generateDocId(String url) {
+    final bytes = utf8.encode(url); // Convert URL to bytes
+    final digest = sha256.convert(bytes); // Generate SHA256 hash
+    return digest.toString(); // Convert hash to a string that can be used as a document ID
+  }
+
+  Future<void> addFavorite(Job job) async {
+    final user = FirebaseAuth.instance.currentUser;
+
+    if (user != null) {
+      // Use the hashed URL to generate a safe document ID
+      final docId = _generateDocId(job.urls);
+
+      final docRef = _firestore
+          .collection('Favorites')
+          .doc(docId); // Safe document ID
+
+      await docRef.set({
+        'profession': job.profession,
+        'city': job.city,
+        'salary': job.salary,
+        'urls': job.urls,
+      });
+
       _favorites.add(job);
-      job.isFavorite = true; // Assuming the Job model has an isFavorite attribute
-      notifyListeners(); // Notify listeners about the update
+      notifyListeners();
     }
   }
 
-bool isFavorite(Job job) {
-  return _favorites.contains(job);
-}
-  // Method to remove a job from favorites
-  void removeFavorite(Job job) {
-    if (_favorites.contains(job)) {
-      _favorites.remove(job);
-      job.isFavorite = false; // Assuming the Job model has an isFavorite attribute
-      notifyListeners(); // Notify listeners about the update
+  Future<void> removeFavorite(Job job) async {
+    final user = FirebaseAuth.instance.currentUser;
+
+    if (user != null) {
+      final docId = _generateDocId(job.urls);
+
+      final docRef = _firestore
+          .collection('Favorites')
+          .doc(docId); // Safe document ID
+
+      await docRef.delete();
+
+      _favorites.removeWhere((fav) => fav.urls == job.urls);
+      notifyListeners();
     }
   }
 
-  // Method to toggle a job's favorite status
-  void toggleFavorite(Job job) {
-    if (_favorites.contains(job)) {
-      removeFavorite(job);
-    } else {
-      addFavorite(job);
+  Future<void> loadFavorites() async {
+    final user = FirebaseAuth.instance.currentUser;
+
+    if (user != null) {
+      final snapshot = await _firestore
+          .collection('users')
+          .doc(user.uid)
+          .collection('Favorites')
+          .get();
+
+      _favorites.clear();
+      for (var doc in snapshot.docs) {
+        _favorites.add(Job(
+          profession: doc['profession'],
+          city: doc['city'],
+          salary: doc['salary'],
+          urls: doc['urls'], conditions: '', relocation: '', gender: '', age: 0, education: [], experience: '', workExperience: [], skills: '',
+        ));
+      }
+      notifyListeners();
     }
   }
 }

@@ -8,14 +8,15 @@ class ProfessionDetailPage extends StatefulWidget {
   final String profession;
   final List<Job> jobs;
 
-  const ProfessionDetailPage({required this.profession, required this.jobs});
+  const ProfessionDetailPage({super.key, required this.profession, required this.jobs});
 
   @override
+  // ignore: library_private_types_in_public_api
   _ProfessionDetailPageState createState() => _ProfessionDetailPageState();
 }
 
 class _ProfessionDetailPageState extends State<ProfessionDetailPage> {
-  int? selectedIndex; // Track the selected index
+  int? selectedIndex;
 
   void _openUrl(String url) async {
     if (await canLaunchUrl(Uri.parse(url))) {
@@ -38,12 +39,12 @@ class _ProfessionDetailPageState extends State<ProfessionDetailPage> {
           return InkWell(
             onTap: () {
               setState(() {
-                selectedIndex = index; // Update selectedIndex on tap
+                selectedIndex = index;
               });
               _openUrl(job.urls);
             },
             child: Card(
-              color: isSelected ? Colors.green[300] : Colors.green[100], // Highlight color if selected
+              color: isSelected ? Colors.green[300] : Colors.green[100],
               elevation: 4.0,
               margin: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
               child: ListTile(
